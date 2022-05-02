@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+
+		<title>Practica 6</title>
+	</head>
+
+	<body>
+		<div id="app">
+			<h1>Liga de github Page: https://github.com/EJU100/Practica6</h1>
+			<h2>Practica 6: VueJs Variables computada, methods y DOM</h2>
+			<img src="https://swansoftwaresolutions.com/wp-content/uploads/2020/01/Benefits-of-Using-VUE.JS.jpeg" width="1366" height="768">
+			<hr>
+
+			<h3>
+				1.1 Variables computadas
+			</h3>
+			<img src="https://static.spektrum.de/fm/912/f2000x857/PhysikFormeln_AdobeStock21178418_EtiAmmos.4135985.jpg" width="1923" height="824">
+			<h4>Select the values with the arrows in the textfielt and choice an operation to be executed:</h4>
+			Enter first number
+      		<input type="number" id="valueOfX">
+      		Enter second number
+      		<input type="number" id="valueOfY">
+      		<button onclick="operation('add')"> Add </button>
+      		<button onclick="operation('sub')"> Sub</button>
+      		<button onclick="operation('mul')"> Mult</button>
+      		<button onclick="operation('div')"> Divi</button>
+      		<h1 id="resultHere"></h1>
+
+			<hr>
+
+			<h3>
+				1.2 Uso de métodos
+			</h3>
+			<img src="https://www.medianale.com/wp-content/uploads/2019/10/1457126299_code_optimization.svg" width="512" height="512">
+			<h4>Enter Text and press Enter and if you wish add another time a string to the existing string:</h4>
+			<div>
+				{{ text }}
+			</div>
+			<div>
+				<input type="text" v-on:keyup.enter="addLine">
+			</div>
+			<hr>
+
+			<h3>
+				1.3 Uso de DOM
+			</h3>
+			<img src="https://miro.medium.com/max/1122/1*hwlyMTnboUp9Mk0mUYhpdQ.png" width="561" height="337">
+			<h4>DOM Reference </h4>
+    		<p ref="p"></p>
+			<h4>{{ message }}</h4>
+			<button ref="myButton" @click="clickedButton">Click Me!</button>
+
+    		
+			<hr>
+        </div>
+
+<footer>
+	&copy; 2022 a01760042@tec.mx
+</footer>
+
+<script>
+	var inputIdFirst = "valueOfX",inputIdSecond = "valueOfY",outputId = "resultHere";
+    var getInputs = function(id) {
+      return parseInt(document.getElementById(id).value);
+    }
+    var showOutput = function(outputValue, outputIdAsArg) {
+      //if no argument is given then by default "outputId" taken
+      document.getElementById(outputId).innerHTML = outputValue;
+    }
+    var manuplateAs = function(operationName, valueOfX, valueOfY) {
+      if(operationName == 'add')
+        return valueOfX + valueOfY;
+      else if(operationName == 'sub')
+        return valueOfX - valueOfY;
+      else if(operationName == 'mul')
+        return valueOfX * valueOfY;
+      else if(operationName == 'div')
+        return valueOfX / valueOfY;
+      //can add as many as you wish 
+    } 
+    var operation = function(operationName){
+      x = getInputs(inputIdFirst);
+      y = getInputs(inputIdSecond);
+      output = manuplateAs(operationName, x, y);
+      showOutput(output);
+      console.log(x + " " + operationName + " " + y + " = " + output)
+      //see console to understand this more
+      console.log(this)
+    };
+    new Vue({
+		el: '#app',
+		data: {
+			text: '',
+			message: 'Second Example with DOM:'
+		},
+		methods: {
+			addLine: function(event) {
+				//debugger;>
+				this.text += event.target.value;
+				event.target.value = '';
+			},
+			clickedButton: function() {
+				console.log(this.$refs);
+			this.$refs.myButton.innerText = this.message;
+			}
+		},
+		mounted(){
+            var today = new Date();
+            this.$refs.p.textContent = 'current date is ' + today;
+        },
+		calculateSum: function(val1, val2) {
+			return val1 + val2;
+		}
+    });
+</script>
+
+<!--<script src="app.js"></script-->
+</body>
+</html>
+
