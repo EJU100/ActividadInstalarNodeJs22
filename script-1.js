@@ -6,7 +6,7 @@ var sql = 'SELECT * FROM category LIMIT 10';
 debugger 
 // Parámetros de conexión a la base de datos.
 var con = mysql.createConnection({
-  host: "localhost",
+  host: "127.0.0.1",
   user: "root",
   password: "123456789",
   database : 'eshop'
@@ -33,3 +33,12 @@ var con = mysql.createConnection({
 
   });
 }); 
+
+const express = require("express");
+const app = express();
+app.get("/", function (req, res) {
+    res.sendFile(__dirname + "/ActividadInstalarNodeJs22.html");
+});
+app.listen(3000, function () {
+    console.log('Instalación correcta, Hola!');
+});
